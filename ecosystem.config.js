@@ -8,7 +8,7 @@ module.exports = {
         watch: false, // Prevents auto-restarting on file changes in production
         env: {
           NODE_ENV: "production",
-          PORT: 8080, // Ensure it matches Render's settings
+          PORT: process.env.PORT || 8000, // Ensure it matches Render's settings
         },
       },
     ],

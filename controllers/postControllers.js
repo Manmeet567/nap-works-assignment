@@ -3,6 +3,8 @@ const validator = require("validator");
 const axios = require("axios");
 
 const createPost = async (req, res, next) => {
+  const { userId, postName, description, uploadTime, tags, imageUrl } =
+    req.body;
   try {
     const loggedInUserId = req.user?.id;
 
@@ -10,7 +12,9 @@ const createPost = async (req, res, next) => {
       return res.status(401).json({ error: "Please Signup or Login first!" });
     }
 
-    const { postName, description, uploadTime, tags, imageUrl } = req.body;
+    if (userId != loggedInUserId) {
+      return res.status(401).json({ error: "Request not Authorized" });
+    }
 
     // Validate tags
     if (tags) {
